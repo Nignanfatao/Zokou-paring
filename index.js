@@ -13,10 +13,10 @@ const {
 } = require("@whiskeysockets/baileys");
 
 global.sessionName = "auth-info";
-const pairingCode = process.argv.includes("--use-pairing-code");
+const pairingCode = process.argv.includes("--utuliser-pairing-code");
 
 if (!pairingCode) {
-  console.log(chalk.redBright("Use --use-pairing-code"));
+  console.log(chalk.redBright("utuliser --utuliser-pairing-code"));
   process.exit(1);
 }
 
@@ -26,13 +26,13 @@ const rl = readline.createInterface({
 });
 const question = (text) => new Promise((resolve) => rl.question(text, resolve));
 
-CFonts.say("Zyy Pairing", {
+CFonts.say("Zokou_pairing", {
   font: "tiny",
   align: "center",
   colors: ["system"],
 });
 CFonts.say(
-  "Simple To Connect Whatsapp Bot Use Pairing Code\nWith Baileys Library\n\nGithub : https://github.com/rizzlogy/zyypairing",
+  "Simple à connecter le robot WhatsApp utilise le code de couplage\nAvec la bibliothèque Baileys\n\nGithub : https://github.com/Nignanfatao/zokou-paring",
   {
     colors: ["system"],
     font: "console",
@@ -43,17 +43,17 @@ CFonts.say(
 async function main() {
   const sessionExists = await fs.pathExists(path.join(__dirname, sessionName));
   if (sessionExists) {
-    console.log(chalk.greenBright("Clearing up session"));
+    console.log(chalk.greenBright("suppression de la session"));
     await fs.emptyDir(path.join(__dirname, sessionName));
     await delay(800);
     ZyyPairing();
   } else {
-    console.log(chalk.greenBright("Starting Code Pairing"));
+    console.log(chalk.greenBright("activation du Pairing-code"));
     ZyyPairing();
   }
 }
 
-async function ZyyPairing() {
+async function Zokou_pairing() {
   const { state, saveCreds } = await useMultiFileAuthState("./" + sessionName);
   try {
     const socket = makeWASocket({
@@ -67,7 +67,7 @@ async function ZyyPairing() {
     if (pairingCode && !socket.authState.creds.registered) {
       let phoneNumber;
       phoneNumber = await question(
-        chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number : `)),
+        chalk.bgBlack(chalk.greenBright(`entrer votre numero whatsapp : `)),
       );
       phoneNumber = phoneNumber.replace(/[^0-9]/g, "");
 
@@ -77,12 +77,12 @@ async function ZyyPairing() {
       ) {
         console.log(
           chalk.bgBlack(
-            chalk.redBright("Start with your country's WhatsApp code!"),
+            chalk.redBright("activation avec le code-sim de votre pays!"),
           ),
         );
         phoneNumber = await question(
           chalk.bgBlack(
-            chalk.greenBright(`Please type your WhatsApp number : `),
+            chalk.greenBright(`entrer votre numero whatsapp : `),
           ),
         );
         phoneNumber = phoneNumber.replace(/[^0-9]/g, "");
